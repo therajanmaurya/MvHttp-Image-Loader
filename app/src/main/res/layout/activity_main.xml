@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2" />
 
@@ -23,6 +24,13 @@
             android:id="@+id/sweetLayoutError"
             layout="@layout/layout_sweet_exception_handler"
             android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/pbImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

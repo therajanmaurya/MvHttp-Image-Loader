@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ImageMindValley</string>
     <string name="user_image">User Image</string>
+    <string name="images">Images</string>
 </resources>
