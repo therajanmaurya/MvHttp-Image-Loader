@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.github.mvhttpclient.repository.ImageLoader
 import com.github.mvhttpclient.repository.Status
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -16,16 +17,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: MainAdapter
+    private lateinit var imageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as ImageApplication).dispatchingAndroidInjector.inject(this)
-
         mainViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        imageLoader = ImageLoader(this,this, mainViewModel.getMvHttpRepository)
 
-        adapter = MainAdapter(this)
+        adapter = MainAdapter(imageLoader)
         rvImages.setHasFixedSize(true)
         rvImages.adapter = adapter
 
@@ -45,5 +47,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        imageLoader.clean()
     }
 }

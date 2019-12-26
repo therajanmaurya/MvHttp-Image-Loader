@@ -2,9 +2,12 @@ package com.github.mvhttpclient.di
 
 import android.app.Application
 import androidx.room.Room
+import com.github.mvhttpclient.AppExecutors
 import com.github.mvhttpclient.api.MvHttpService
+import com.github.mvhttpclient.db.ImageDao
 import com.github.mvhttpclient.db.ImageDataDao
 import com.github.mvhttpclient.db.MvHttpDb
+import com.github.mvhttpclient.repository.MvHttpRepository
 import com.github.mvhttpclient.utils.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -47,6 +50,17 @@ class MvHttpAppModule {
 
     @Singleton
     @Provides
+    fun profileMvHttpRepository(
+        appExecutors: AppExecutors,
+        mvHttpService: MvHttpService,
+        imageDataDao: ImageDataDao,
+        imageDao: ImageDao
+    ): MvHttpRepository {
+        return MvHttpRepository(appExecutors, mvHttpService, imageDataDao, imageDao)
+    }
+
+    @Singleton
+    @Provides
     fun provideDb(app: Application): MvHttpDb {
         return Room
             .inMemoryDatabaseBuilder(app, MvHttpDb::class.java)
@@ -58,5 +72,11 @@ class MvHttpAppModule {
     @Provides
     fun provideImageDataDao(db: MvHttpDb): ImageDataDao {
         return db.imageDataDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideImageDao(db: MvHttpDb): ImageDao {
+        return db.imageDao()
     }
 }

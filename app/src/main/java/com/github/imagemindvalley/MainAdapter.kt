@@ -1,6 +1,5 @@
 package com.github.imagemindvalley
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mvhttpclient.models.ImageData
+import com.github.mvhttpclient.repository.ImageLoader
 import kotlinx.android.synthetic.main.item_main.view.*
 
-class MainAdapter(private val context: Context) : ListAdapter<ImageData, MainAdapter.ViewHolder>(
-    ImageDiffCallback()
-) {
+class MainAdapter(
+    private val imageLoader: ImageLoader
+) :
+    ListAdapter<ImageData, MainAdapter.ViewHolder>(
+        ImageDiffCallback()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,6 +24,7 @@ class MainAdapter(private val context: Context) : ListAdapter<ImageData, MainAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageData = getItem(position)
+        imageLoader.loadImage(holder.ivNewsIcon, imageData.urls.full, 500, 500, 50)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

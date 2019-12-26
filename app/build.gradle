@@ -45,6 +45,7 @@ dependencies {
     implementation deps.support.cardview
     implementation deps.support.design
     implementation deps.support.recyclerview
+    implementation deps.sweet_error
 
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions

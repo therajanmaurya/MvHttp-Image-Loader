@@ -39,6 +39,7 @@ versions.rxjava2 = "2.1.3"
 versions.support = "1.0.0"
 versions.timber = "4.5.1"
 versions.work = "2.1.0"
+versions.sweet_error = "1.0.1"
 ext.versions = versions
 
 def deps = [:]
@@ -135,6 +136,7 @@ deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.robolectric = "org.robolectric:robolectric:$versions.robolectric"
+deps.sweet_error = "com.github.therajanmaurya:Sweet-Error:$versions.sweet_error"
 ext.deps = deps
 
 def build_versions = [:]
