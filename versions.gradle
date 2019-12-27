@@ -40,6 +40,7 @@ versions.support = "1.0.0"
 versions.timber = "4.5.1"
 versions.work = "2.1.0"
 versions.sweet_error = "1.0.1"
+versions.multidex = '1.0.3'
 ext.versions = versions
 
 def deps = [:]
@@ -137,6 +138,7 @@ deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.robolectric = "org.robolectric:robolectric:$versions.robolectric"
 deps.sweet_error = "com.github.therajanmaurya:Sweet-Error:$versions.sweet_error"
+deps.multidex = "com.android.support:multidex:$versions.multidex"
 ext.deps = deps
 
 def build_versions = [:]
