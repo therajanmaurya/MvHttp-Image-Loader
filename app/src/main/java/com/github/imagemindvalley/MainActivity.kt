@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
             showProgressBar(); fetchImages()
         }
 
+        swipeRefreshLayout.setOnRefreshListener { showProgressBar(); fetchImages() }
+
         fetchImages()
     }
 
@@ -49,7 +51,11 @@ class MainActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     swipeRefreshLayout.isRefreshing = false
                     if (it.data != null && it.data!!.isNotEmpty()) {
-                        sweetUIErrorHandler.hideSweetErrorLayoutUI(rvImages, sweetLayoutError)
+                        sweetUIErrorHandler.hideSweetErrorLayoutUI(
+                            swipeRefreshLayout,
+                            sweetLayoutError
+                        )
+                        rvImages.visibility = View.VISIBLE
                         adapter.submitList(it.data)
                         adapter.notifyDataSetChanged()
                     }
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 Status.ERROR -> {
                     swipeRefreshLayout.isRefreshing = false
                     sweetUIErrorHandler.showSweetErrorUI(
-                        getString(R.string.images), rvImages, sweetLayoutError
+                        getString(R.string.images), swipeRefreshLayout, sweetLayoutError
                     )
                 }
                 Status.LOADING -> {
