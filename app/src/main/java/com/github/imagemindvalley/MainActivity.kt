@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getImageData().observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
-                    pbImages.visibility = View.GONE
+                    swipeRefreshLayout.isRefreshing = false
                     if (it.data != null && it.data!!.isNotEmpty()) {
                         sweetUIErrorHandler.hideSweetErrorLayoutUI(rvImages, sweetLayoutError)
                         adapter.submitList(it.data)
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 Status.ERROR -> {
-                    pbImages.visibility = View.GONE
+                    swipeRefreshLayout.isRefreshing = false
                     sweetUIErrorHandler.showSweetErrorUI(
                         getString(R.string.images), rvImages, sweetLayoutError
                     )
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showProgressBar() {
-        pbImages.visibility = View.VISIBLE
+        swipeRefreshLayout.isRefreshing = true
         rvImages.visibility = View.GONE
         sweetLayoutError.visibility = View.GONE
     }
